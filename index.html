@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mihir Digavalli | Data Engineer</title>
+
+  <!-- Optional: Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-elevated: #0b1020;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.14);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(156, 163, 175, 0.3);
+      --chip-bg: rgba(15, 23, 42, 0.9);
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.55);
+      --shadow-subtle: 0 12px 30px rgba(15, 23, 42, 0.4);
+      --container-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 50%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ===== Header / Nav ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.92), rgba(2, 6, 23, 0.7));
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 2px solid rgba(79, 70, 229, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, #4f46e5, #020617 65%);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .nav-title-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 0.98rem;
+    }
+
+    .nav-title-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: var(--text-muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.2rem;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(to right, #a855f7, #4f46e5, #22d3ee);
+      transition: width 0.18s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.2), transparent 55%);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.86rem;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .nav-cta span.icon {
+      font-size: 1rem;
+    }
+
+    .nav-cta:hover {
+      background: radial-gradient(circle at 100% 0, rgba(244, 114, 182, 0.26), transparent 58%);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+    }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .nav-links-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding-bottom: 0.8rem;
+      font-size: 0.92rem;
+    }
+
+    .nav-links-mobile a {
+      color: var(--text-muted);
+    }
+
+    .nav-links-mobile a:hover {
+      color: var(--text-main);
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      padding: 3.75rem 0 3.25rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.32), transparent 55%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(to right, #a855f7, #4f46e5, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      max-width: 520px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .meta-pill {
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95));
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.6rem 1.3rem;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.1s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #a855f7);
+      color: white;
+      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 55px rgba(79, 70, 229, 0.7);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.96);
+      border-color: rgba(148, 163, 184, 0.9);
+      color: var(--text-main);
+    }
+
+    .btn-primary span.icon,
+    .btn-ghost span.icon {
+      font-size: 1.05rem;
+    }
+
+    .hero-secondary-text {
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .hero-secondary-text span {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    /* Hero right */
+    .hero-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top, rgba(79, 70, 229, 0.38), transparent 58%),
+                  radial-gradient(circle at bottom, rgba(8, 47, 73, 0.9), rgba(15, 23, 42, 1));
+      padding: 1.25rem 1.1rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-avatar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #22d3ee, #4f46e5 55%, #020617 90%);
+      border: 2px solid rgba(15, 23, 42, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #e5e7eb;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.95);
+    }
+
+    .avatar-meta-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .avatar-meta-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-chip {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .hero-highlight-card {
+      position: relative;
+      z-index: 1;
+      border-radius: 1.1rem;
+      padding: 0.8rem 0.85rem;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.95);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-highlight-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-highlight-title {
+      font-size: 0.86rem;
+      font-weight: 500;
+    }
+
+    .hero-highlight-badge {
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      font-size: 0.72rem;
+      color: #bbf7d0;
+    }
+
+    .hero-highlight-body {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.2rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-stat-label {
+      color: #e5e7eb;
+      font-weight: 500;
+      font-size: 0.78rem;
+    }
+
+    /* ===== Section Utility + Scroll Animation ===== */
+    section {
+      padding: 2.5rem 0 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      max-width: 460px;
+    }
+
+    /* ===== About ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.2fr);
+      gap: 1.6rem;
+    }
+
+    .about-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 1rem;
+      box-shadow: var(--shadow-subtle);
+      font-size: 0.9rem;
+      color: #d1d5db;
+    }
+
+    .about-list {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .about-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .about-list-label {
+      color: var(--text-muted);
+    }
+
+    .about-list-value {
+      font-weight: 500;
+    }
+
+    /* ===== Skills ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .skill-card-title {
+      font-size: 0.88rem;
+      margin-bottom: 0.35rem;
+      font-weight: 500;
+    }
+
+    .skill-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .skill-chip {
+      font-size: 0.78rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      border: 1px solid rgba(15, 23, 42, 0.85);
+      color: var(--text-muted);
+    }
+
+    /* ===== Projects ===== */
+    .projects-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.8rem;
+    }
+
+    .filter-pill {
+      padding: 0.25rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .filter-pill.active {
+      background: var(--accent-soft);
+      color: #c7d2fe;
+      border-color: rgba(79, 70, 229, 0.9);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .project-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: var(--shadow-subtle);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 190px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-description {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+      flex-grow: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .project-tag {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      color: var(--text-muted);
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.77rem;
+      color: var(--text-muted);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.76rem;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .project-link:hover {
+      background: rgba(15, 23, 42, 1);
+      color: #e5e7eb;
+    }
+
+    /* ===== Experience ===== */
+    .timeline {
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 1rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 0.6rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.7);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .timeline-role {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .timeline-company {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-meta {
+      font-size: 0.79rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-description {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== Contact ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
+      gap: 1.5rem;
+    }
+
+    .contact-card,
+    .contact-side {
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 1rem;
+      box-shadow: var(--shadow-subtle);
+      font-size: 0.87rem;
+    }
+
+    .contact-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .contact-label {
+      color: var(--text-muted);
+    }
+
+    .contact-value {
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .social-pill {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-muted);
+    }
+
+    .social-pill:hover {
+      background: rgba(15, 23, 42, 1);
+      color: #e5e7eb;
+    }
+
+    /* ===== Footer ===== */
+    .site-footer {
+      padding: 1.8rem 0 2rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .site-footer span {
+      color: #e5e7eb;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 2.4rem;
+      }
+
+      .about-grid,
+      .contact-grid,
+      .timeline-item {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links-mobile.open {
+        display: flex;
+      }
+
+      .hero-title {
+        font-size: 2.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-card {
+        margin-top: 1rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER / NAVBAR ===== -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <div class="nav-left">
+          <div class="logo-circle">
+            MD
+          </div>
+          <div class="nav-title">
+            <div class="nav-title-main">Mihir Digavalli</div>
+            <div class="nav-title-sub">Data Engineer</div>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+          <a href="#contact" class="nav-cta">
+            <span class="icon">📩</span>
+            <span>Open to opportunities</span>
+          </a>
+        </div>
+
+        <!-- Mobile nav toggle -->
+        <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleMobileNav()">
+          ☰
+        </button>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div id="mobileNav" class="nav-links-mobile">
+        <a href="#about" onclick="toggleMobileNav()">About</a>
+        <a href="#skills" onclick="toggleMobileNav()">Skills</a>
+        <a href="#projects" onclick="toggleMobileNav()">Projects</a>
+        <a href="#experience" onclick="toggleMobileNav()">Experience</a>
+        <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div>
+            <div class="hero-tag">
+              <span class="hero-tag-dot"></span>
+              <span>Actively looking for Data Engineer roles</span>
+            </div>
+            <h1 class="hero-title">
+              Hi, I'm <span class="accent">Mihir Digavalli</span> 👋
+            </h1>
+            <p class="hero-subtitle">
+              A <strong>Data Engineer</strong> who enjoys building reliable data pipelines, analytics solutions,
+              and dashboards using <strong>Python, SQL, PySpark, Airflow, Power BI</strong> and cloud platforms
+              like <strong>AWS</strong> and <strong>Azure</strong>.
+            </p>
+
+            <div class="hero-meta">
+              <div class="meta-pill">Data Pipelines · ETL · Analytics</div>
+              <div class="meta-pill">Open to: Full-time · Remote / Hybrid</div>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn-primary">
+                <span>View data projects</span>
+                <span class="icon">↗</span>
+              </a>
+              <!-- Replace # with link to your resume (PDF / Google Drive) -->
+              <a href="#" class="btn-ghost">
+                <span class="icon">📄</span>
+                <span>Download résumé</span>
+              </a>
+            </div>
+
+            <p class="hero-secondary-text">
+              Currently: <span>Improving my data engineering & analytics skills</span> · Tech stack:
+              <span>Python · SQL · Power BI · PySpark · Airflow</span>
+            </p>
+          </div>
+
+          <aside class="hero-card" aria-label="Profile summary">
+            <div class="hero-avatar">
+              <div class="avatar-circle">MD</div>
+              <div>
+                <div class="avatar-meta-title">Mihir Digavalli</div>
+                <div class="avatar-meta-sub">Data Engineer</div>
+              </div>
+            </div>
+
+            <div class="hero-tech-tags">
+              <span class="tech-chip">Python</span>
+              <span class="tech-chip">SQL</span>
+              <span class="tech-chip">PySpark</span>
+              <span class="tech-chip">Airflow</span>
+              <span class="tech-chip">Power BI</span>
+              <span class="tech-chip">AWS</span>
+              <span class="tech-chip">Azure</span>
+            </div>
+
+            <div class="hero-highlight-card">
+              <div class="hero-highlight-header">
+                <div class="hero-highlight-title">Recent highlight</div>
+                <div class="hero-highlight-badge">Data-driven</div>
+              </div>
+              <div class="hero-highlight-body">
+                Designed and implemented data solutions that transform raw data into <strong>actionable insights</strong>
+                using modern data engineering tools and cloud platforms.
+              </div>
+              <div class="hero-stats">
+                <div>
+                  <div class="hero-stat-label">3+ </div>
+                  <div>Data projects</div>
+                </div>
+                <div>
+                  <div class="hero-stat-label">Stack</div>
+                  <div>Python · SQL · BI</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About</h2>
+          <p class="section-subtitle">
+            A quick overview of who you are as a Data Engineer, what you enjoy working on, and the kind of roles
+            you’re looking for.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <p>
+              I’m a <strong>Data Engineer</strong> with a strong interest in building
+              <strong>scalable data pipelines, analytics solutions, and dashboards</strong>. I enjoy working with
+              <strong>Python, SQL, PySpark, Airflow, Power BI, AWS, and Azure</strong> to move, transform, and
+              visualize data so that teams can make better decisions.
+            </p>
+            <br />
+            <p>
+              I care about <em>clean, reliable, and well-documented</em> data workflows. I like designing
+              ETL/ELT pipelines, optimizing queries, and collaborating with analysts and stakeholders to turn business
+              requirements into data models and reports.
+            </p>
+          </div>
+
+          <div class="about-card">
+            <ul class="about-list">
+              <li>
+                <span class="about-list-label">Role</span>
+                <span class="about-list-value">Data Engineer</span>
+              </li>
+              <li>
+                <span class="about-list-label">Tech stack</span>
+                <span class="about-list-value">Python, SQL, PySpark, Airflow, Power BI</span>
+              </li>
+              <li>
+                <span class="about-list-label">Cloud</span>
+                <span class="about-list-value">AWS, Azure</span>
+              </li>
+              <li>
+                <span class="about-list-label">Frontend</span>
+                <span class="about-list-value">JavaScript, React</span>
+              </li>
+              <li>
+                <span class="about-list-label">Looking for</span>
+                <span class="about-list-value">Data Engineer / Analytics Engineer roles</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Skills</h2>
+          <p class="section-subtitle">
+            Core technologies and tools I use to build data solutions, pipelines, and dashboards.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-card-title">Languages &amp; Querying</div>
+            <div class="skill-chip-row">
+              <span class="skill-chip">Python</span>
+              <span class="skill-chip">SQL</span>
+              <span class="skill-chip">Java</span>
+              <span class="skill-chip">JavaScript</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-card-title">Data Engineering</div>
+            <div class="skill-chip-row">
+              <span class="skill-chip">PySpark</span>
+              <span class="skill-chip">Airflow</span>
+              <span class="skill-chip">ETL / ELT</span>
+              <span class="skill-chip">Data Modeling</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-card-title">Cloud &amp; BI</div>
+            <div class="skill-chip-row">
+              <span class="skill-chip">AWS</span>
+              <span class="skill-chip">Azure</span>
+              <span class="skill-chip">Power BI</span>
+              <span class="skill-chip">Excel</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-card-title">Frontend &amp; Tools</div>
+            <div class="skill-chip-row">
+              <span class="skill-chip">React</span>
+              <span class="skill-chip">REST APIs</span>
+              <span class="skill-chip">Git &amp; GitHub</span>
+              <span class="skill-chip">VS Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Projects</h2>
+          <p class="section-subtitle">
+            A selection of data engineering and analytics projects. Replace these descriptions with your own
+            real projects and links.
+          </p>
+        </div>
+
+        <div class="projects-filters">
+          <span class="filter-pill active">All</span>
+          <span class="filter-pill">Data Pipelines</span>
+          <span class="filter-pill">Analytics</span>
+          <span class="filter-pill">Dashboards</span>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- Project 1 -->
+          <article class="project-card">
+            <div class="project-label">Featured · Data Pipeline</div>
+            <h3 class="project-title">Sales Analytics Data Pipeline</h3>
+            <p class="project-description">
+              End-to-end data pipeline that ingests sales data from multiple sources, transforms it using
+              Python / PySpark, and loads it into a data warehouse for reporting in Power BI. Automated
+              using Airflow with daily scheduled runs.
+            </p>
+
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">PySpark</span>
+              <span class="project-tag">Airflow</span>
+              <span class="project-tag">SQL</span>
+              <span class="project-tag">Power BI</span>
+            </div>
+
+            <div class="project-meta">
+              <span>2025 · Personal project</span>
+              <div class="project-links">
+                <!-- Replace # with your live demo link and GitHub repo link -->
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <span>Live dashboard</span> <span>↗</span>
+                </a>
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <span>Code</span> <span>🐙</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card">
+            <div class="project-label">Analytics Dashboard</div>
+            <h3 class="project-title">Customer Retention Insights</h3>
+            <p class="project-description">
+              Built an interactive Power BI dashboard to track customer churn, retention, and lifetime
+              value. Data is pulled from a SQL database, cleaned in Python, and refreshed on a schedule.
+            </p>
+
+            <div class="project-tags">
+              <span class="project-tag">Power BI</span>
+              <span class="project-tag">SQL</span>
+              <span class="project-tag">Python</span>
+            </div>
+
+            <div class="project-meta">
+              <span>2024 · Analytics project</span>
+              <div class="project-links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <span>Dashboard</span> <span>↗</span>
+                </a>
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <span>Code</span> <span>🐙</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card">
+            <div class="project-label">Data Engineering</div>
+            <h3 class="project-title">Log Processing & Monitoring</h3>
+            <p class="project-description">
+              Implemented a pipeline that processes application logs, stores them in a data store, and
+              exposes metrics on a small React-based dashboard for monitoring performance and errors.
+            </p>
+
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">SQL</span>
+              <span class="project-tag">React</span>
+              <span class="project-tag">AWS / Azure</span>
+            </div>
+
+            <div class="project-meta">
+              <span>2023 · Personal / learning project</span>
+              <div class="project-links">
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <span>Demo</span> <span>↗</span>
+                </a>
+                <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                  <span>Code</span> <span>🐙</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Experience &amp; Education</h2>
+          <p class="section-subtitle">
+            Add internships, full-time roles, projects, and education here. Replace placeholders with your own details.
+          </p>
+        </div>
+
+        <div class="timeline">
+
+          <!-- Experience item (sample) -->
+          <div class="timeline-item">
+            <div>
+              <div class="timeline-role">Data Engineer / Intern</div>
+              <div class="timeline-company">Company Name · Location</div>
+              <div class="timeline-meta">Month YYYY – Present · Internship</div>
+            </div>
+            <div class="timeline-description">
+              • Worked on building and maintaining ETL pipelines using Python, SQL, and Airflow.<br />
+              • Collaborated with analysts to design data models and create datasets for reporting.<br />
+              • Optimized queries and improved pipeline performance / reliability.
+            </div>
+          </div>
+
+          <!-- Education item (sample) -->
+          <div class="timeline-item">
+            <div>
+              <div class="timeline-role">Bachelor's Degree / Program</div>
+              <div class="timeline-company">University / College · Location</div>
+              <div class="timeline-meta">YYYY – YYYY · B.Tech / BSc / etc.</div>
+            </div>
+            <div class="timeline-description">
+              • Relevant coursework: Databases, Data Structures, Algorithms, Data Warehousing, Cloud Computing.<br />
+              • Activities: Hackathons, tech clubs, or data-related projects.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Contact</h2>
+          <p class="section-subtitle">
+            The easiest ways to reach me and see more of my work. Update this with your real email, phone,
+            and profile links.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-line">
+              <span class="contact-label">Email</span>
+              <!-- Replace with your real email -->
+              <a href="mailto:mihir.digavalli@example.com" class="contact-value">
+                mihir.digavalli@example.com
+              </a>
+            </div>
+            <div class="contact-line">
+              <span class="contact-label">Phone</span>
+              <!-- Replace with your real phone -->
+              <span class="contact-value">+91-XXXXXXXXXX</span>
+            </div>
+            <div class="contact-line">
+              <span class="contact-label">Location</span>
+              <span class="contact-value">Your City, India</span>
+            </div>
+
+            <div class="social-row">
+              <!-- Replace # with your actual profile links -->
+              <a href="#" target="_blank" rel="noopener noreferrer" class="social-pill">GitHub</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="social-pill">LinkedIn</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="social-pill">Power BI / Portfolio</a>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="social-pill">LeetCode / HackerRank</a>
+            </div>
+          </div>
+
+          <aside class="contact-side">
+            <p>
+              I’m interested in <strong>Data Engineer</strong>, <strong>Analytics Engineer</strong>, and
+              <strong>Data-focused Software Engineer</strong> roles where I can work on data pipelines,
+              analytics, and dashboards using my current tech stack.
+            </p>
+            <br />
+            <p>
+              Feel free to reach out if you’d like to discuss an opportunity or see more of my work.
+              I’m always open to learning, collaborating, and contributing to data-driven teams.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div>© <span id="year"></span> <span>Mihir Digavalli</span>. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Update the year automatically
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav toggle function
+    function toggleMobileNav() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.toggle("open");
+    }
+
+    // Scroll reveal for sections
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll("section").forEach((section) => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
